@@ -121,7 +121,7 @@ def fight(id):
         usr_s = 0 if i >= len(usr) else get_score(usr[i])
         opp_s = 0 if i >= len(opp) else get_score(opp[i])
         
-        if check_user_win(usr_s, opp_s):
+        if not check_user_win(usr_s, opp_s):
             wins += 1
             append_poke(usr_poke, usr, True)
             append_poke(opp_poke, opp, False)
@@ -130,24 +130,32 @@ def fight(id):
             append_poke(opp_poke, opp, True)
             append_poke(usr_poke, usr, False)
         
-            
+    
+    def lose_player(plr):
+        if not plr.losses:
+            plr.losses = 1
+        else:
+            plr.losses += 1
+    def win_player(plr):
+        if not plr.wins:
+            plr.wins = 1
+        else:
+            plr.wins += 1
 
     title = "You Won!"
     if wins == loss:
         title = "It's a Tie!"
     elif wins < loss:
         title = "You lost!"
-        if not current_user.losses:
-            current_user.losses = 1
-        else:
-            current_user.losses += 1
+        win_player(opponent)
+        lose_player(current_user)
         current_user.save()
+        opponent.save()
     else:
-        if not current_user.wins:
-            current_user.wins = 1
-        else:
-            current_user.wins += 1
+        win_player(current_user)
+        lose_player(opponent)
         current_user.save()
+        opponent.save()
 
     return render_template("fight-summary.html.j2", usr_poke=usr_poke, opp_poke=opp_poke, opp=opponent, title=title)
 
