@@ -111,6 +111,7 @@ def fight(id):
         return not chance_scores(o, u)
     
     def append_poke(poke, pokes, win: bool):
+        if i >= len(pokes): return
         poke.append({ "name": pokes[i].name, "status": "Won!" if win else "Fainted...", "won": win })
 
     usr_poke = []
