@@ -1,0 +1,84 @@
+{% extends 'base.html.j2'%}
+{% block title %}
+    {% if current_user.is_authenticated %}
+        Edit Profile
+    {% else %}
+        Register
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1 class="mt-4">
+        {% if current_user.is_authenticated %}
+            Edit Profile
+        {% else %}
+            Register
+        {% endif %}
+    </h1>
+    <form action="{{url_for('auth.edit_profile') if current_user.is_authenticated else url_for('auth.get_register')}}" method="POST">
+    {{form.hidden_tag()}}
+
+    <div class="mb-3 py-1 px-2">
+        {{form.icon.label(class="form-label")}}
+        <div class="d-flex justify-content-evenly align-items-center">
+            {% if current_user.is_authenticated %}
+                <div>
+                    <input id="icon-none" name="icon" required type="radio" value="-1">
+                    <label for="icon-none" class="px-1 py-4">Don't Change</label>
+                </div>
+            {% endif %}
+            {% for subfield in form.icon %}
+                <div>
+                {{subfield}}
+                {{subfield.label | safe}}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mb-3">
+        {{form.first_name.label(class="form-label")}}
+        {{form.first_name(class="form-control", value=current_user.first_name)}}
+        {% for error in form.first_name.errors%}
+            <small style="color:red">{{error}}</small>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        {{form.last_name.label(class="form-label")}}
+        {{form.last_name(class="form-control", value=current_user.last_name)}}
+        {% for error in form.last_name.errors%}
+            <small style="color:red">{{error}}</small>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{form.email.label(class="form-label")}}
+        {{form.email(class="form-control", value=current_user.email)}}
+        {% for error in form.email.errors%}
+            <small style="color:red">{{error}}</small>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        {{form.password.label(class="form-label")}}
+        {{form.password(class="form-control")}}
+        {% for error in form.password.errors%}
+            <small style="color:red">{{error}}</small>
+        {% endfor %}
+    <div class="mb-3">
+        {{form.confirm_password.label(class="form-label")}}
+        {{form.confirm_password(class="form-control")}}
+        {% for error in form.confirm_password.errors%}
+            <small style="color:red">{{error}}</small>
+        {% endfor %}
+    </div>
+
+    <div>
+        {% if current_user.is_authenticated %}
+            <input id="submit" class="btn btn-primary" name="submit" type="submit" value="Update">
+        {% else %}
+            {{form.submit(class="btn btn-primary")}}
+            <a class="btn btn-success" href="/login">Login Instead</a><br>
+        {% endif %}
+        <small style="color:red">{{error}}</small>
+    </div>
+    </form>
+{% endblock %}

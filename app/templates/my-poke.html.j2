@@ -1,0 +1,25 @@
+{% extends 'base.html.j2' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    <div class="row d-flex justify-content-center align-items-center h-75">
+        <h1 class="text-center">Your Pokemon</h1>
+        {% for poke in current_user.pokemons %}
+            <div class="card mx-1" style="width: 18rem;">
+                <img src="{{poke.img}}" class="card-img-top" alt="Pokemon Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{poke.name}}</h5>
+                    <p class="card-text">
+                        HP: {{poke.hp}}<br>
+                        Attack: {{poke.attack}}<br>
+                        Defense: {{poke.defense}}
+                    </p>
+                    <a href="{{url_for('poke.release_pokemon', id=poke.id)}}" class="btn btn-danger mx-auto">Release Pokemon</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

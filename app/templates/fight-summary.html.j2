@@ -1,0 +1,45 @@
+{% extends 'base.html.j2' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    <div class="row d-flex justify-content-center align-items-center h-75">
+        <h1 class="text-center">{{title}}</h1>
+        <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">You</th>
+                <th scope="col">Pokemon</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for poke in usr_poke %}
+            <tr class="{{'table-success' if poke.won else 'table-danger'}}">
+                <th scope="row">...</th>
+                <td>{{poke.name}}</td>
+                <td>{{poke.status}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <thead class="table-light">
+            <tr>
+                <th scope="col">{{opp.first_name}}</th>
+                <th scope="col">Pokemon</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for poke in opp_poke %}
+            <tr class="{{'table-success' if poke.won else 'table-danger'}}">
+                <th scope="row">...</th>
+                <td>{{poke.name}}</td>
+                <td>{{poke.status}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}

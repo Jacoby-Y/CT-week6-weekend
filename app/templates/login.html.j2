@@ -1,0 +1,23 @@
+{% extends 'base.html.j2'%}
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+    <h1 class="pt-5 pb-3">Login</h1>
+    <form action="{{url_for('auth.post_login')}}" method="POST">
+        {{form.hidden_tag()}}
+        <div class="input-group mb-3">
+            <span class="input-group-text bg-light" id="basic-addon3">Email Address</span>
+            {{form.email(class="form-control", aria_describedby="basic-addon3")}}
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text bg-light" id="basic-addon3">Password</span>
+            {{form.password(class="form-control", aria_describedby="basic-addon3")}}
+        </div>
+        <div>
+            {{form.submit(class="btn btn-primary")}}
+            <a class="btn btn-success" href="/register">Register Instead</a>
+        </div>
+    </form>
+{% endblock %}

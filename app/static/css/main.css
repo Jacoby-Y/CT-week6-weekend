@@ -1,0 +1,48 @@
+html {
+    height: 100vh;
+    overflow: hidden;
+}
+body {
+    height: 100%;
+    background-color: #73b9bc;
+}
+#main-nav {
+    /* border-bottom: 2px solid #393939; */
+}
+.user-card-body {
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
+}
+.fight-me {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.poke-card-body {
+    position: relative;
+}
+.poke-card-body p {
+    font-size: 1rem;
+}
+.catch-poke-btn {
+    position: absolute;
+    transform: translate(0%, -50%);
+    top: 50%;
+    right: 1rem;
+}
+#poke-img {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.perc-100 { height: 100%; }
+.perc-75 { height: 75%; }
+.perc-50 { height: 50%; }
+.perc-25 { height: 25%; }
+.perc-0 { height: 0%; }
+.width-max-content { width: max-content; }

@@ -1,0 +1,41 @@
+{% extends 'base.html.j2' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    <div class="row d-flex justify-content-center align-items-center h-75 w-50 mx-auto">
+        <form class="d-flex" role="search" action="{{url_for('poke.get_search')}}" method="POST">
+          <input 
+            class="form-control me-2" 
+            name="search"
+            type="search"
+            placeholder="Pokemon search"
+            aria-label="pokemon search"
+            value="{{'' if not pokemon else pokemon.name}}">
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+
+        {% if pokemon and current_user.pokemons.__len__() < 5 %}
+            <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{pokemon.img}}" id="poke-img" class="img-fluid" alt="{{pokemon.name}} Image">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body poke-card-body">
+                            <h5 class="card-title">{{pokemon.name.title()}}</h5>
+                            <p class="card-text">
+                                HP: {{pokemon.hp}}<br>
+                                Attack: {{pokemon.attack}}<br>
+                                Defense: {{pokemon.defense}}
+                            </p>
+                            <a class="btn btn-primary text-light catch-poke-btn" href="{{url_for('poke.catch', id=pokemon.id)}}">Catch</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
